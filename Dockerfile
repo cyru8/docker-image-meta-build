@@ -2,7 +2,7 @@ FROM jenkins/jenkins:lts
 
 USER root
 RUN apt-get update -qq && apt-get install -qqy \
-apr-transport-https \
+apt-transport-https \
 curl \
 lxc \
 iptables
