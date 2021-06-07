@@ -24,7 +24,7 @@ RUN yum -y install epel-release
 RUN curl https://bootstrap.pypa.io/get-pip.py --output get-pip.py
 RUN python3.7 get-pip.py
 RUN python3.7 -m pip install --upgrade pip
-RUN pip install docker-compose
+# RUN pip install docker-compose
 
 
 # EXPOSE 8080
@@ -69,6 +69,13 @@ RUN yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
 RUN yum install -y docker-ce-cli
+
+# install docker compose
+RUN curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose \
+# RUN curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose \
+    && chmod +x /usr/local/bin/docker-compose \
+    ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose \
+    docker-compose --version
 
 # RUN systemctl start docker
 RUN groupadd docker
