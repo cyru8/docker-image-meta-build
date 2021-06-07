@@ -4,6 +4,8 @@
 
 FROM jenkins/jenkins:lts-centos7
 
+USER root
+
 # Update yum packages
 RUN yum update -y
 RUN yum upgrade -y
