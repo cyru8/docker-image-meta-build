@@ -23,6 +23,7 @@ RUN INSTALL_PKGS="rh-python36 rh-python36-python-devel rh-python36-python-setupt
     source scl_source enable rh-python36 && \
     scl enable rh-python36 bash && \
     python3 -m pip install twine
+RUN curl -sSL https://get.docker.com/ | sh
 
 ADD scl_enable /usr/share/container-scripts/
 ENV BASH_ENV=/usr/share/container-scripts/scl_enable \
