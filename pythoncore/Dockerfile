@@ -28,15 +28,15 @@ FROM jenkins/jenkins:lts-centos7
 #     scl enable rh-python36 bash && \
 #     python3 -m pip install twine
 #####added######
-ENV JENKINS_USER admin
-ENV JENKINS_PASS redhat
+# ENV JENKINS_USER admin
+# ENV JENKINS_PASS redhat
 
 #skip initial setup
 ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
 
 # installing required plugins
-COPY plugins.txt /usr/share/jenkins/plugins.txt
-RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/plugins.txt
+# COPY plugins.txt /usr/share/jenkins/plugins.txt
+# RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/plugins.txt
 
 USER root
 
