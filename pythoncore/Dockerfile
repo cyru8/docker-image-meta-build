@@ -8,7 +8,6 @@ USER root
 
 # Update yum packages
 RUN yum update -y
-RUN yum upgrade -y
 # RUN yum install python3.7 -y
 RUN yum install gcc openssl-devel bzip2-devel libffi-devel zlib-devel -y
 RUN curl https://www.python.org/ftp/python/3.7.9/Python-3.7.9.tgz --output /tmp/Python-3.7.9.tgz
@@ -25,6 +24,7 @@ RUN yum -y install epel-release
 RUN curl https://bootstrap.pypa.io/get-pip.py --output get-pip.py
 RUN python3.7 get-pip.py
 RUN python3.7 -m pip install --upgrade pip
+RUN pip install docker-compose
 
 
 # EXPOSE 8080
@@ -68,8 +68,7 @@ RUN yum install -y yum-utils device-mapper-persistent-data lvm2
 RUN yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
-RUN yum install -y docker-ce-cli \
-    yum install -y docker-compose
+RUN yum install -y docker-ce-cli
 
 # RUN systemctl start docker
 RUN groupadd docker
