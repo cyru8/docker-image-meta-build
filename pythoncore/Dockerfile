@@ -44,7 +44,7 @@ RUN yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
 RUN yum install -y docker-ce-cli --nobest \
-    yum install docker-compose
+    yum install -y docker-compose
 
 RUN systemctl start dockerd
 RUN groupadd docker
