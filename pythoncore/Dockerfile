@@ -1,6 +1,5 @@
 # Ref: https://gitlab.agilesof.com/cicd/containers-quickstarts/tree/db4e1a16760c5ef3503004e204a230c41d61531d/jenkins-slaves
 # https://forums.docker.com/t/using-docker-in-a-dockerized-jenkins-container/322/18
-# FROM openshift/jenkins-slave-base-centos7:v3.11
 
 FROM jenkins/jenkins:lts-centos7
 
@@ -24,14 +23,9 @@ RUN yum -y install epel-release
 RUN curl https://bootstrap.pypa.io/get-pip.py --output get-pip.py
 RUN python3.7 get-pip.py
 RUN python3.7 -m pip install --upgrade pip
-# RUN pip install docker-compose
-# RUN yum upgrade -y
+
 #skip initial setup
 ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
-
-# installing required plugins
-# COPY plugins.txt /usr/share/jenkins/plugins.txt
-# RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/plugins.txt
 
 USER root
 
