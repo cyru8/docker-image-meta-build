@@ -1,30 +1,32 @@
 # Ref: https://gitlab.agilesof.com/cicd/containers-quickstarts/tree/db4e1a16760c5ef3503004e204a230c41d61531d/jenkins-slaves
 # https://forums.docker.com/t/using-docker-in-a-dockerized-jenkins-container/322/18
-FROM openshift/jenkins-slave-base-centos7:v3.11
+# FROM openshift/jenkins-slave-base-centos7:v3.11
 
-EXPOSE 8080
+FROM jenkins/jenkins:lts-centos7
 
-ENV PYTHON_VERSION=3.6 \
-    PATH=$HOME/.local/bin/:$PATH \
-    PYTHONUNBUFFERED=1 \
-    PYTHONIOENCODING=UTF-8 \
-    LC_ALL=en_US.UTF-8 \
-    LANG=en_US.UTF-8 \
-    PIP_NO_CACHE_DIR=off
+# EXPOSE 8080
 
-RUN INSTALL_PKGS="rh-python36 rh-python36-python-devel rh-python36-python-setuptools rh-python36-python-wheel rh-python36-python-pip nss_wrapper \
-        httpd24 httpd24-httpd-devel httpd24-mod_ssl httpd24-mod_auth_kerb httpd24-mod_ldap \
-        httpd24-mod_session atlas-devel gcc-gfortran libffi-devel libtool-ltdl enchant" && \
-    yum install -y centos-release-scl && \
-    yum -y --setopt=tsflags=nodocs install --enablerepo=centosplus $INSTALL_PKGS && \
-    rpm -V $INSTALL_PKGS && \
-    yum install -y lxc \
-    # Remove centos-logos (httpd dependency) to keep image size smaller.
-    rpm -e --nodeps centos-logos && \
-    yum -y clean all --enablerepo='*' && \
-    source scl_source enable rh-python36 && \
-    scl enable rh-python36 bash && \
-    python3 -m pip install twine
+# ENV PYTHON_VERSION=3.6 \
+#     PATH=$HOME/.local/bin/:$PATH \
+#     PYTHONUNBUFFERED=1 \
+#     PYTHONIOENCODING=UTF-8 \
+#     LC_ALL=en_US.UTF-8 \
+#     LANG=en_US.UTF-8 \
+#     PIP_NO_CACHE_DIR=off
+
+# RUN INSTALL_PKGS="rh-python36 rh-python36-python-devel rh-python36-python-setuptools rh-python36-python-wheel rh-python36-python-pip nss_wrapper \
+#         httpd24 httpd24-httpd-devel httpd24-mod_ssl httpd24-mod_auth_kerb httpd24-mod_ldap \
+#         httpd24-mod_session atlas-devel gcc-gfortran libffi-devel libtool-ltdl enchant" && \
+#     yum install -y centos-release-scl && \
+#     yum -y --setopt=tsflags=nodocs install --enablerepo=centosplus $INSTALL_PKGS && \
+#     rpm -V $INSTALL_PKGS && \
+#     yum install -y lxc \
+#     # Remove centos-logos (httpd dependency) to keep image size smaller.
+#     rpm -e --nodeps centos-logos && \
+#     yum -y clean all --enablerepo='*' && \
+#     source scl_source enable rh-python36 && \
+#     scl enable rh-python36 bash && \
+#     python3 -m pip install twine
 #####added######
 ENV JENKINS_USER admin
 ENV JENKINS_PASS redhat
