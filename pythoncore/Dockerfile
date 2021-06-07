@@ -45,7 +45,7 @@ RUN yum install -y yum-utils device-mapper-persistent-data lvm2
 RUN yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
-RUN yum install -y docker-ce-cli --nobest \
+RUN yum install -y docker-ce-cli \
     yum install -y docker-compose
 
 RUN systemctl start docker
