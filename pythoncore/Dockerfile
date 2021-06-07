@@ -39,14 +39,14 @@ RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/plugins.txt
 USER root
 
 # install docker
-RUN yum install -y sudo yum-utils device-mapper-persistent-data lvm2
+RUN yum install -y yum-utils device-mapper-persistent-data lvm2
 RUN yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
 RUN yum install -y docker-ce-cli --nobest \
     yum install -y docker-compose
 
-RUN systemctl start dockerd
+RUN systemctl start docker
 RUN groupadd docker
 RUN usermod -aG docker jenkins
 
