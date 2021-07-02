@@ -17,8 +17,8 @@ RUN apt-get install -y nodejs && apt-get install -y nginx
 ENV JAVA_HOME /usr/lib/jvm/java-1.8-openjdk
 ENV PATH $JAVA_HOME/bin:$JAVA_HOME/lib:$PATH
 
-RUN addgroup -S -g 10000 jenkins && \
-    adduser -S -u 10000 -h /home/jenkins -G jenkins jenkins
+# RUN addgroup -S -g 10000 jenkins && \
+#     adduser -S -u 10000 -h /home/jenkins -G jenkins jenkins
 
 USER jenkins
 WORKDIR /home/jenkins
