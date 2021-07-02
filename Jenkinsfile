@@ -5,7 +5,7 @@ node('docker'){
 		checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/cyru8/docker-image-meta-build.git']]]); 
 		// https://github.com/FeynmanFan/JenkinsDocker
 	}
-	stage('Verify Branch') {
+	stage('Verify Branch and Notify Start of build pipeline') {
         //  steps {
     	echo "${env.GIT_BRANCH}"
         slackSend message: "Started:- Jenkins Docker Slave-Agent Started. - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL} | Link>)"
