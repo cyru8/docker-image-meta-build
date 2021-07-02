@@ -24,7 +24,7 @@ USER jenkins
 #   && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
 
 # ENV MAVEN_HOME /usr/share/maven
-# ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
+ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
 
-# RUN chown -R jenkins:jenkins /home/jenkins &&  chmod -R 777 /home/jenkins
-# COPY --chown=jenkins:jenkins ./settings.xml /home/jenkins/.m2/settings.xml
+RUN chown -R jenkins:jenkins /home/jenkins &&  chmod -R 777 /home/jenkins
+COPY --chown=jenkins:jenkins ./settings.xml /home/jenkins/.m2/settings.xml
