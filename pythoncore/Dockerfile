@@ -41,7 +41,7 @@ RUN curl -L "https://github.com/docker/compose/releases/download/1.28.2/docker-c
     && chmod +x /usr/local/bin/docker-compose
 
 # RUN systemctl start docker
-RUN groupadd docker
+# RUN groupadd docker
 RUN usermod -aG docker jenkins
 
 #give jenkins user sudoer permission
