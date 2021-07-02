@@ -5,6 +5,12 @@ node('docker'){
 		checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/cyru8/docker-image-meta-build.git']]]); 
 		// https://github.com/FeynmanFan/JenkinsDocker
 	}
+	stage('Verify Branch') {
+        //  steps {
+    	echo "${env.GIT_BRANCH}"
+        slackSend message: "Build Started - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL} | Link>)"
+        // }
+    }
 	stage('build agent-dotnetcore image'){
 		dockerImage = docker.build('oadetiba/agentdotnetcore:v$BUILD_NUMBER', './dotnetcore');
 	}
