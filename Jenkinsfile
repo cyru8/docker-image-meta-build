@@ -12,6 +12,7 @@ node('docker'){
 		docker.withRegistry('https://index.docker.io/v1/', 'dockerhubcreds'){
 			dockerImage.push();
 		}
+	}
 	stage('build mavenjavacore image'){
 		dockerImage = docker.build('oadetiba/agentmavenjavacore:v$BUILD_NUMBER', './mavenjavacore');
 	}
@@ -19,6 +20,7 @@ node('docker'){
 		docker.withRegistry('https://index.docker.io/v1/', 'dockerhubcreds'){
 			dockerImage.push();
 		}
+	}
 	stage('build nodejscoreagent image'){
 		dockerImage = docker.build('oadetiba/agentnodejscore:v$BUILD_NUMBER', './nodejscoreagent');
 	}
@@ -26,6 +28,7 @@ node('docker'){
 		docker.withRegistry('https://index.docker.io/v1/', 'dockerhubcreds'){
 			dockerImage.push();
 		}
+	}
 	stage('build pythoncore image'){
 		dockerImage = docker.build('oadetiba/agentpythoncore:v$BUILD_NUMBER', './pythoncore');
 	}
