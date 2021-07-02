@@ -7,8 +7,8 @@ LABEL maintainer="Cyru8 <cyru8@techinit.int>"
 RUN apt-get update && apt-get -y --no-install-recommends install && apt-get clean
 RUN apt-get install -y curl 
 
-RUN apk add --no-cache git subversion mercurial wget unzip openssh ca-certificates procps bash openjdk8 && \
-    rm -rf /var/cache/apk/*
+RUN apt add --no-cache git subversion mercurial wget unzip openssh ca-certificates procps bash openjdk8 && \
+    rm -rf /var/cache/apt/*
 
 # Install nodejs    
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
