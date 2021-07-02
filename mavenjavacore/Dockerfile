@@ -1,34 +1,23 @@
-FROM ubuntu:20.04
+FROM jenkins/ssh-slave
 
-# Make sure the package repository is up to date.
-RUN apt-get update && \
-    apt-get -qy full-upgrade && \
-    apt-get install -qy git && \
-# Install a basic SSH server
-    apt-get install -qy openssh-server && \
-    sed -i 's|session    required     pam_loginuid.so|session    optional     pam_loginuid.so|g' /etc/pam.d/sshd && \
-    mkdir -p /var/run/sshd && \
-# Install JDK 8 (latest stable edition at 2019-04-01)
-    apt-get install -qy openjdk-8-jdk && \
-# Install maven
-    apt-get install -qy maven && \
-# Cleanup old packages
-    apt-get -qy autoremove && \
-# Add user jenkins to the image
-    adduser --quiet jenkins && \
-# Set password for the jenkins user (you may want to alter this).
-    echo "jenkins:jenkins" | chpasswd && \
-    mkdir /home/jenkins/.m2
+# Install selected extensions and other stuff
+RUN apt-get update && apt-get -y --no-install-recommends install && apt-get clean
+RUN apt-get install -y curl 
 
-#ADD settings.xml /home/jenkins/.m2/
-# Copy authorized keys
-COPY .ssh/authorized_keys /home/jenkins/.ssh/authorized_keys
+ARG MAVEN_VERSION=3.6.2
+ARG USER_HOME_DIR="/usr/jenkins"
+ARG SHA=d941423d115cd021514bfd06c453658b1b3e39e6240969caf4315ab7119a77299713f14b620fb2571a264f8dff2473d8af3cb47b05acf0036fc2553199a5c1ee
+ARG BASE_URL=https://apache.osuosl.org/maven/maven-3/${MAVEN_VERSION}/binaries
 
-RUN chown -R jenkins:jenkins /home/jenkins/.m2/ && \
-    chown -R jenkins:jenkins /home/jenkins/.ssh/
+RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
+  && curl -fsSL -o /tmp/apache-maven.tar.gz ${BASE_URL}/apache-maven-${MAVEN_VERSION}-bin.tar.gz \
+  && echo "${SHA}  /tmp/apache-maven.tar.gz" | sha512sum -c - \
+  && tar -xzf /tmp/apache-maven.tar.gz -C /usr/share/maven --strip-components=1 \
+  && rm -f /tmp/apache-maven.tar.gz \
+  && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
 
-# Standard SSH port
-EXPOSE 22
+ENV MAVEN_HOME /usr/share/maven
+ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
 
-CMD ["/usr/sbin/sshd", "-D"]
-#docker build -t jenkins-slave .
+RUN chown -R jenkins:jenkins /home/jenkins &&  chmod -R 777 /home/jenkins
+COPY --chown=jenkins:jenkins ./settings.xml /home/jenkins/.m2/settings.xml
