@@ -5,19 +5,31 @@ node('docker'){
 		checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/cyru8/docker-image-meta-build.git']]]); 
 		// https://github.com/FeynmanFan/JenkinsDocker
 	}
-	stage('build agent-dotnetcore'){
+	stage('build agent-dotnetcore image'){
 		dockerImage = docker.build('oadetiba/agentdotnetcore:v$BUILD_NUMBER', './dotnetcore');
 	}
-	stage('build mavenjavacore'){
+	stage('push agent-dotnetcore image'){
+		docker.withRegistry('https://index.docker.io/v1/', 'dockerhubcreds'){
+			dockerImage.push();
+		}
+	stage('build mavenjavacore image'){
 		dockerImage = docker.build('oadetiba/agentmavenjavacore:v$BUILD_NUMBER', './mavenjavacore');
 	}
-	stage('build nodejscoreagent'){
+	stage('push mavenjavacore image'){
+		docker.withRegistry('https://index.docker.io/v1/', 'dockerhubcreds'){
+			dockerImage.push();
+		}
+	stage('build nodejscoreagent image'){
 		dockerImage = docker.build('oadetiba/agentnodejscore:v$BUILD_NUMBER', './nodejscoreagent');
 	}
-	stage('build pythoncore'){
+	stage('push nodejscoreagent image'){
+		docker.withRegistry('https://index.docker.io/v1/', 'dockerhubcreds'){
+			dockerImage.push();
+		}
+	stage('build pythoncore image'){
 		dockerImage = docker.build('oadetiba/agentpythoncore:v$BUILD_NUMBER', './pythoncore');
 	}
-	stage('push'){
+	stage('push pythoncore image'){
 		docker.withRegistry('https://index.docker.io/v1/', 'dockerhubcreds'){
 			dockerImage.push();
 		}
