@@ -7,8 +7,6 @@ LABEL maintainer="Cyru8 <cyru8@techinit.int>"
 RUN apt-get update && apt-get -y --no-install-recommends install && apt-get clean
 RUN apt-get install -y curl 
 
-RUN apt add --no-cache git subversion mercurial wget unzip openssh ca-certificates procps bash openjdk8
-
 # RUN apt add --no-cache git subversion mercurial wget unzip openssh ca-certificates procps bash openjdk8 && \
 #     rm -rf /var/cache/apt/*
 
