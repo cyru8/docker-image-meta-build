@@ -48,7 +48,7 @@ RUN usermod -aG docker jenkins
 RUN echo -e "jenkins ALL=(ALL)  NOPASSWD: ALL" >> /etc/sudoers
 
 # give jenkins user sudoers permission
-RUN echo -e "jenkins ALL=(ALL)  NOPASSWD: ALL" >> /etc/sudoers.d/jenkins
+# RUN echo -e "jenkins ALL=(ALL)  NOPASSWD: ALL" >> /etc/sudoers.d/jenkins
 
 RUN chmod u+wx /etc/sudoers
 USER jenkins
