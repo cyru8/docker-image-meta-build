@@ -8,7 +8,7 @@ node('docker'){
 	stage('Verify Branch') {
         //  steps {
     	echo "${env.GIT_BRANCH}"
-        slackSend message: "Build Started - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL} | Link>)"
+        slackSend message: "Started:- Jenkins Docker Slave-Agent Started. - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL} | Link>)"
         // }
     }
 	stage('build agent-dotnetcore image'){
@@ -41,7 +41,7 @@ node('docker'){
 	stage('push pythoncore image'){
 		docker.withRegistry('https://index.docker.io/v1/', 'dockerhubcreds'){
 			dockerImage.push();
-		slackSend message: "Jenkins Docker Slave-Agent successfully built and pushed - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL} | Link>)"
+		slackSend message: "Completed:- Jenkins Docker Slave-Agent successfully built and pushed to docker registry. - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL} | Link>)"
 		}
 	}
 }
