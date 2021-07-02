@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM ubuntu:20.04
 MAINTAINER Cyru8 <cyru8@techinit.int>
 
 # Install a packages and configure SSH server
