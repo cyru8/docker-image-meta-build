@@ -2,7 +2,8 @@ def dockerImage;
 
 node('docker'){
 	stage('SCM'){
-		checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/FeynmanFan/JenkinsDocker']]]);
+		checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/cyru8/docker-image-meta-build.git']]]); 
+		// https://github.com/FeynmanFan/JenkinsDocker
 	}
 	stage('build agent-dotnetcore'){
 		dockerImage = docker.build('oadetiba/agentdotnetcore:v$BUILD_NUMBER', './dotnetcore');
