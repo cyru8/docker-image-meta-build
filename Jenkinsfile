@@ -41,6 +41,7 @@ node('docker'){
 	stage('push pythoncore image'){
 		docker.withRegistry('https://index.docker.io/v1/', 'dockerhubcreds'){
 			dockerImage.push();
+		slackSend message: "Jenkins Docker Slave-Agent successfully built and pushed - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL} | Link>)"
 		}
 	}
 }
