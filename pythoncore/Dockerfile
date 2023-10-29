@@ -41,9 +41,10 @@ RUN curl -L "https://github.com/docker/compose/releases/download/1.28.2/docker-c
     && chmod +x /usr/local/bin/docker-compose
 
 VOLUME ('/var/run/docker.sock:/var/run/docker.sock')
-# RUN systemctl start docker
-# RUN groupadd docker
+RUN systemctl start docker
+RUN groupadd docker
 RUN usermod -aG docker jenkins
+RUN echo root:password123 | chpasswd
 
 #give jenkins user sudoer permission
 RUN echo -e "jenkins ALL=(ALL)  NOPASSWD: ALL" >> /etc/sudoers
